@@ -11,13 +11,13 @@ import { withFetch } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-//import { InterfaceComponent } from './interface/interface.component';
+import { InterfaceComponent } from './interface/interface.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    //InterfaceComponent
+    InterfaceComponent
   ],
   imports: [
     

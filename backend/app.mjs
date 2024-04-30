@@ -85,9 +85,9 @@ app.post('/auth/login', async (req, res) => {
         const user = await journal.loginUser(username, password);
         if (user) {
             req.session.user = { userId: user.id, username };
-            console.log("req session.user=", req.session.user);
+            console.log("logged in req session.user=", req.session.user);
             //req.session.user = { username }; // Store user information in session
-            res.json({ message: 'User logged in successfully' });
+            res.json({ message: 'User logged in successfully', userId: user.id });
         } else {
             res.status(401).json({ error: 'User not found: Please register before logging in' });
         }
@@ -129,11 +129,13 @@ app.put('/auth/update-password', async (req, res) => {
 });
 
 // Create a journal entry
-app.post('/api/journal-entries', async (req, res) => {
+app.post('/api/journal-entries/:userId', async (req, res) => {
     const { title, content } = req.body; 
+    const userId = req.params.userId;
 
     try {
-        const userId = req.session.user.userId; 
+        //const userId = req.session.user.userId;
+        //const userId = req.params.userId; 
         await journal.createJournalEntry(userId, title, content);
         res.status(201).json({ message: 'Journal entry created successfully' });
     } catch (error) {
@@ -142,13 +144,15 @@ app.post('/api/journal-entries', async (req, res) => {
     }
 });
 
-app.get('/api/journal-entries', async (req, res) => {
-    //const userId = req.params.id;
-    const userId = req.session.user.userId;
-    console.log("get user id=", userId);
+app.get('/api/journal-entries/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    console.log('entries id=', userId);
+    //const userId = req.session.user.userId;
+    //console.log("get user id=", userId);
     try {
 
         const entries = await journal.getEntries(userId);
+        console.log('got something back')
         res.json(entries);
     } catch (error) {
         console.error(error);

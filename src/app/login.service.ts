@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+  userId: string = '';
 
   constructor(private http: HttpClient) {}
 
@@ -20,10 +22,17 @@ export class LoginService {
   }
 
 
-//   getJournalEntries(): Observable<any[]> {
-//     const url = 'http://localhost:5000/api/journal-entries';
-//     return this.http.get<any[]>(url);
-//   }
+  // getJournalEntries(): Observable<any[]> {
+  //   const url = 'http://localhost:5000/api/journal-entries';
+  //   return this.http.get<any[]>(url);
+  // }
+
+  getJournalEntries(userId: number): Observable<any> {
+    // Make the API call to retrieve journal entries using the userId
+    return this.http.get<any>(`http://localhost:5000/api/journal-entries/${userId}`);
+  }
+
+  
 // getJournalEntries(userId: number): Observable<any[]> {
 //   // Append userId to the URL query string
 //   const url = `http://localhost:5000/api/journal-entries?userId=${userId}`;

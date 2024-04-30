@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { LoginService } from '../login.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { map, switchMap } from 'rxjs';
+import { NavigationExtras } from '@angular/router';
 
 
 @Component({
@@ -90,6 +92,7 @@ export class LoginComponent {
       next: (response) => {
         if (response.message) {
           if (response.message && response.message === 'User logged in successfully') {
+            this.authService.userId = response.userId;
             this.onSuccess(response.message)
             this.router.navigate(['/interface']);
 
@@ -110,6 +113,10 @@ export class LoginComponent {
       }
     });
   }
+
+  
+
+ 
   
 
   private onSuccess(responseMessage: string): void {
