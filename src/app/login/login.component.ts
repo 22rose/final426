@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../login.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -19,8 +21,22 @@ export class LoginComponent {
   
   message: string = "";
   showMessage: boolean = false;
+  registerForm: FormGroup;
+  loginForm: FormGroup;
+  //router: any;
+ 
 
-  constructor(private authService: LoginService, private formBuilder: FormBuilder,) {}
+  constructor(private authService: LoginService, private formBuilder: FormBuilder,  private router: Router) {
+    this.registerForm = this.formBuilder.group({
+      username: '',
+      password: ''
+    });
+
+    this.loginForm = this.formBuilder.group({
+      username: '',
+      password: ''
+    });
+  }
 
   // onSubmit(): void {
   //   let form = this.form.value;
@@ -38,10 +54,11 @@ export class LoginComponent {
   //     });
   // }
 
-  onSubmit(): void {
+  onRegister(): void {
     let form = this.form.value;
     let username = form.username ?? "";
     let password = form.password ?? "";
+
   
     console.log('Submitting login form with username:', username, 'and password:', password);
   
@@ -61,29 +78,39 @@ export class LoginComponent {
         }
       });
   }
+
+  onLogin(): void {
+    let form = this.loginForm.value;
+    let username = form.username ?? "";
+    let password = form.password ?? "";
+
+    console.log('Submitting login form with username:', username, 'and password:', password);
+
+    this.authService.loginUser(username, password).subscribe({
+      next: (response) => {
+        if (response.message) {
+          if (response.message && response.message === 'User logged in successfully') {
+            this.onSuccess(response.message)
+            this.router.navigate(['/interface']);
+
+          }
+          //this.onSuccess(response.message)
+            
+          
+          // Navigate to the main interface page upon successful login
+          // Assuming the route name is 'interface'
+          //this.router.navigate(['/interface']);
+        } else {
+          this.onError('Unknown response from server');
+        }
+      },
+      error: (err) => {
+        console.error(err);
+        this.onError('Invalid username or password');
+      }
+    });
+  }
   
-
-  // private onSuccess(): void {
-  //   this.message = `Thanks for registering!`;
-  //   this.form.reset();
-  // }
-
-  // private onError(err: Error) {
-  //   if (err.message) {
-  //     this.message = err.message;
-  //   } else {
-  //     this.message = "Unknown error: " + JSON.stringify(err);
-  //   }
-  // }
-
-  // private onSuccess(responseMessage: string): void {
-  //   this.message = responseMessage;
-  //   this.form.reset();
-  // }
-  
-  // private onError(errorMessage: string): void {
-  //   this.message = errorMessage;
-  // }
 
   private onSuccess(responseMessage: string): void {
     this.message = responseMessage;
@@ -91,7 +118,7 @@ export class LoginComponent {
     this.form.reset();
     setTimeout(() => {
       this.showMessage = false;
-    }, 3000); // 5 seconds
+    }, 5000); // 5 seconds
   }
   
   private onError(errorMessage: string): void {
@@ -99,12 +126,6 @@ export class LoginComponent {
     this.showMessage = true;
     setTimeout(() => {
       this.showMessage = false;
-    }, 3000); // 5 seconds
+    }, 5000); // 5 seconds
   }
-
-
-  
-  
-
-  
 }

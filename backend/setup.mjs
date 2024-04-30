@@ -4,7 +4,7 @@ import {db} from './db.mjs';
 //const db = new sqlite3.Database('database.sqlite');
 
 await db.run('DROP TABLE IF EXISTS users');
-await db.run('DROP TABLE IF EXISTS jorunal_entries');
+await db.run('DROP TABLE IF EXISTS journal_entries');
 await db.run(`
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

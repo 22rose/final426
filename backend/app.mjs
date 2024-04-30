@@ -62,10 +62,11 @@ app.get('/auth/registered-users', async (req, res) => {
 
 
 app.get('/auth/user/:id', async (req, res) => {
-    const userId = req.params.id;
+    //const userId = req.params.id;
+    const userId = req.session.user.userId; 
 
     try {
-        const user = await journal.getUserById(userId);
+        const user = await journal.getUserByID(userId);
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
@@ -83,7 +84,9 @@ app.post('/auth/login', async (req, res) => {
     try {
         const user = await journal.loginUser(username, password);
         if (user) {
-            req.session.user = { username }; // Store user information in session
+            req.session.user = { userId: user.id, username };
+            console.log("req session.user=", req.session.user);
+            //req.session.user = { username }; // Store user information in session
             res.json({ message: 'User logged in successfully' });
         } else {
             res.status(401).json({ error: 'User not found: Please register before logging in' });
@@ -127,11 +130,26 @@ app.put('/auth/update-password', async (req, res) => {
 
 // Create a journal entry
 app.post('/api/journal-entries', async (req, res) => {
-    const { userId, title, content } = req.body;
+    const { title, content } = req.body; 
 
     try {
+        const userId = req.session.user.userId; 
         await journal.createJournalEntry(userId, title, content);
         res.status(201).json({ message: 'Journal entry created successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+app.get('/api/journal-entries', async (req, res) => {
+    //const userId = req.params.id;
+    const userId = req.session.user.userId;
+    console.log("get user id=", userId);
+    try {
+
+        const entries = await journal.getEntries(userId);
+        res.json(entries);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -144,7 +162,8 @@ app.put('/api/journal-entries/:id', async (req, res) => {
     const { title, content } = req.body;
 
     try {
-        await journal.editJournalEntry(entryId, title, content);
+        const userId = req.session.user.userId;
+        await journal.editJournalEntry(userId, entryId, title, content);
         res.json({ message: 'Journal entry updated successfully' });
     } catch (error) {
         console.error(error);
@@ -157,7 +176,8 @@ app.delete('/api/journal-entries/:id', async (req, res) => {
     const entryId = req.params.id;
 
     try {
-        await journal.deleteJournalEntry(entryId);
+        const userId = req.session.user.userId;
+        await journal.deleteJournalEntry(userId, entryId);
         res.json({ message: 'Journal entry deleted successfully' });
     } catch (error) {
         console.error(error);

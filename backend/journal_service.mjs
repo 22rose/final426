@@ -88,7 +88,7 @@ export class journal{
     
     static async createJournalEntry(userId, title, content) {
         try {
-            const result = await db.run('INSERT INTO journal_entries (user_id, title, content) VALUES (?, ?, ?)', [userId, title, content]);
+            const result = await db.run('INSERT INTO journal_entries (userId, title, content) VALUES (?, ?, ?)', [userId, title, content]);
             console.log('result =', result);
             return { success: true };
         } catch (error) {
@@ -97,7 +97,7 @@ export class journal{
         }
     }
 
-    static async editJournalEntry(entryId, title, content) {
+    static async editJournalEntry(userId, entryId, title, content) {
         try {
             const result = await db.run('UPDATE journal_entries SET title = ?, content = ? WHERE id = ?', [title, content, entryId]);
             console.log('result =', result);
@@ -108,7 +108,7 @@ export class journal{
         }
     }
 
-    static async deleteJournalEntry(entryId) {
+    static async deleteJournalEntry(userId, entryId) {
         try {
             const result = await db.run('DELETE FROM journal_entries WHERE id = ?', [entryId]);
             console.log('result =', result);
@@ -116,6 +116,17 @@ export class journal{
         } catch (error) {
             console.error(error);
             throw new Error('Error deleting journal entry');
+        }
+    }
+
+    static async getEntries(userId){
+        try{
+            const entries = await db.all("SELECT * FROM journal_entries WHERE userId = ?", [userId]);
+            console.log("entries=", entries)
+            return entries;
+        }catch(error){
+            console.error(error);
+            throw new Error('Error retrieving entries');
         }
     }
 }

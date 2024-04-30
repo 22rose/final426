@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let entry of entries">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">{{ entry.title }}</h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ entry.content }}</p>
+          </div>
+          <!-- Add any other fields you want to display -->
+        </div>
+      </div>
+    </div>
+  </div>
