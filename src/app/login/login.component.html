@@ -1,51 +1,48 @@
 <div class="center-container">
-  <form [formGroup]="form" (ngSubmit)="onRegister()">
-    <div class="form">
-      <div *ngIf="showMessage" class="message">
-        <p>{{ message }}</p>
-      </div>
-      <div class="title">Welcome</div>
-      <div class="subtitle">Let's register!</div>
-    
-      <div class="input-container ic2">
-        <input id="username1" class="input" type="text" formControlName="username" placeholder="Username" />
-        <div class="cut"></div>
-        
-      </div>
-      <div class="input-container ic2">
-        <input id="password1" class="input" type="text" formControlName="password" placeholder="Password" />
-        <div class="cut"></div>
-        
-      </div>
-      <div class="submit-button">
-        <button type="submit" class="submit">Submit</button>
-      </div>
+  <div class="container">
+    <div class="welcome-text">
+      <h1>Welcome to your personal diary</h1>
     </div>
-  </form>
-</div>
+    <div class="form">
+      <!-- Register form -->
+      <form [formGroup]="form" (ngSubmit)="onRegister()">
+        <div class="title">Welcome</div>
+        <div class="subtitle">Let's register!</div>
+        <div *ngIf="showMessage" class="message">
+          <p>{{ message }}</p>
+        </div>
+        <div class="input-container ic2">
+          <input id="username1" class="input" type="text" formControlName="username" placeholder="Username" />
+          <div class="cut"></div>
+        </div>
+        <div class="input-container ic2">
+          <input id="password1" class="input" type="text" formControlName="password" placeholder="Password" />
+          <div class="cut"></div>
+        </div>
+        <div class="submit-button">
+          <button type="submit" class="submit">Submit</button>
+        </div>
+      </form>
+    </div>
 
-<div class="center-container">
-  <!-- Login form -->
-  <div class="login-form">
-    <div class="title">Welcome</div>
-    <div class="subtitle">Let's login!</div>
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <!-- Login form fields -->
-      <div class="input-container ic2">
-        <input id="username" class="input" type="text" formControlName="username" placeholder="Username" />
-        <div class="cut"></div>
-      </div>
-      <div class="input-container ic2">
-        <input id="password" class="input" type="password" formControlName="password" placeholder="Password" />
-        <div class="cut"></div>
-      </div>
-      <div class="submit-button">
-        <button type="submit" class="submit">Submit</button>
-      </div>
-    </form>
+    <!-- Add padding between the forms -->
+    <div class="form" style="padding-top: 20px;">
+      <!-- Login form -->
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <div class="title">Welcome</div>
+        <div class="subtitle">Let's login!</div>
+        <div class="input-container ic2">
+          <input id="username" class="input" type="text" formControlName="username" placeholder="Username" />
+          <div class="cut"></div>
+        </div>
+        <div class="input-container ic2">
+          <input id="password" class="input" type="password" formControlName="password" placeholder="Password" />
+          <div class="cut"></div>
+        </div>
+        <div class="submit-button">
+          <button type="submit" class="submit">Submit</button>
+        </div>
+      </form>
+    </div>
   </div>
-
-  
-
-  
 </div>
