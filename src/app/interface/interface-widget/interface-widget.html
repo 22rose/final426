@@ -1,0 +1,11 @@
+<div class="journal-entry">
+    <div class="entry-header">{{ entry.month }} {{ entry.day }}</div>
+    <div class="entry-content">
+      {{ entry.content }}
+    </div>
+    <div class="entry-actions">
+      <button class="edit-button" (click)="editEntry()">Edit</button>
+      <button class="delete-button" (click)="deleteEntry()">Delete</button>
+    </div>
+  </div>
+  

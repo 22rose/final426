@@ -160,6 +160,16 @@ app.get('/api/journal-entries/:userId', async (req, res) => {
     }
 });
 
+app.get('/api/journal-entries', async (req, res) => {
+    try {
+        const entries = await journal.getAllJournalEntries();
+        res.json(entries);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 // Edit a journal entry
 app.put('/api/journal-entries/:id', async (req, res) => {
     const entryId = req.params.id;

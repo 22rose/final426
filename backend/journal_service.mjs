@@ -129,4 +129,14 @@ export class journal{
             throw new Error('Error retrieving entries');
         }
     }
+    static async getAllJournalEntries() {
+        try {
+          const entries = await db.all("SELECT * FROM journal_entries");
+          console.log("entries=", entries);
+          return entries;
+        } catch (error) {
+          console.error(error);
+          throw new Error('Error retrieving journal entries');
+        }
+      }
 }

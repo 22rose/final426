@@ -1,0 +1,45 @@
+.journal-entry {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    width: calc(33.33% - 20px);
+  }
+  
+  @media (max-width: 768px) {
+    .journal-entry {
+      width: 100%;
+    }
+  }
+  
+  .entry-header {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .entry-content {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .entry-actions {
+    text-align: right;
+  }
+  
+  .edit-button,
+  .delete-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff69b4;
+    color: #ffffff;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+  }
+  
