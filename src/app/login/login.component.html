@@ -1,0 +1,25 @@
+<div class="center-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form">
+      <div *ngIf="showMessage" class="message">
+        <p>{{ message }}</p>
+      </div>
+      <div class="title">Welcome</div>
+      <div class="subtitle">Let's register!</div>
+    
+      <div class="input-container ic2">
+        <input id="username" class="input" type="text" formControlName="username" />
+        <div class="cut"></div>
+        <label for="username" class="placeholder">username</label>
+      </div>
+      <div class="input-container ic2">
+        <input id="password" class="input" type="text" formControlName="password" />
+        <div class="cut"></div>
+        <label for="password" class="placeholder">password</label>
+      </div>
+      <div class="submit-button">
+        <button type="submit" class="submit">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
