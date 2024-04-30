@@ -32,7 +32,18 @@ export class LoginService {
     return this.http.get<any>(`http://localhost:5000/api/journal-entries/${userId}`);
   }
 
-  
+
+  addJournalEntry(userId: number, title: string, content: string): Observable<any> {
+    return this.http.post<any>(`http://localhost:5000/api/journal-entries/${userId}`, { title, content });
+  }
+
+  // updateJournalEntry(userId: number, entryId: number, title: string, content: string): Observable<any> {
+  //   return this.http.put<any>(`http://localhost:5000/api/journal-entries/${entryId}`, { userId, title, content });
+  // }
+ 
+  // deleteJournalEntry(userId: number, entryId: number): Observable<any>{
+  //   return this.http.delete<any>(`http://localhost:5000/api/journal-entries/${entryId}`, { userId });
+  // }
 // getJournalEntries(userId: number): Observable<any[]> {
 //   // Append userId to the URL query string
 //   const url = `http://localhost:5000/api/journal-entries?userId=${userId}`;

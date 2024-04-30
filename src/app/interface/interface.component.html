@@ -1,13 +1,26 @@
 <div class="container">
+  <button (click)="createJournalForm()" class="btn btn-primary mb-4">Create Journal Entry</button>
+  
+
+
+<div class="container">
     <div class="row">
       <div class="col-md-4 mb-4" *ngFor="let entry of entries">
         <div class="card">
+          <div class="card-date">
+            <h5 class="card-date">{{ entry.createdAt }}</h5>
+          </div>
           <div class="card-header">
             <h5 class="card-title">{{ entry.title }}</h5>
           </div>
           <div class="card-body">
             <p class="card-text">{{ entry.content }}</p>
           </div>
+          <!-- <div>
+            <button (click)="editPost()" class="edit-button">Edit Entry</button>
+            <button (click)="deletePost()" class="delete-button">Delete Entry</button>
+          </div> -->
+
           <!-- Add any other fields you want to display -->
         </div>
       </div>

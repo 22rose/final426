@@ -94,6 +94,7 @@ export class LoginComponent {
           if (response.message && response.message === 'User logged in successfully') {
             this.authService.userId = response.userId;
             this.onSuccess(response.message)
+            //localStorage.setItem('userId', response.userId); 
             this.router.navigate(['/interface']);
 
           }
