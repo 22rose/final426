@@ -73,6 +73,17 @@ export class journal{
         }
     }
 
+    static async deleteUser(userId){
+        try {
+            const result = await db.run('DELETE FROM users WHERE id = ?', [userId]);
+            console.log('result =', result);
+            return { success: true };
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error user');
+        }
+    }
+
     static async updatePassword(username, newPassword) {
         try {
             //hash new password

@@ -11,7 +11,8 @@ app.use('/public', express.static('public'));
 
 app.use(bodyParser.json());
 
-// Configure session middleware
+// Configure session middleware; used so data that is being shown is user-specific. 
+//additionally since our users table stores unique ids for each user, we do that there as well
 app.use(session({
     secret: 'your_secret_key',
     resave: false,
@@ -26,6 +27,10 @@ app.use(cors({
   }));
 
 
+  //user resource: can register (post), see fellow registered users(get), login(post),
+  //logout(post), update password (put), delete user/yourself (delete)
+
+  //journal resource: can create entry, edit, delete, and get entries
 app.post('/auth/register', async (req, res) => {
     const { username, password } = req.body;
 
@@ -50,6 +55,8 @@ app.post('/auth/register', async (req, res) => {
     }
 });
 
+
+//have a user see all their fellow users?
 app.get('/auth/registered-users', async (req, res) => {
     try {
         const users = await journal.getRegisteredUsers();
@@ -108,12 +115,15 @@ app.post('/auth/logout', (req, res) => {
     });
 });
 
+//this doesnt work
+
 app.put('/auth/update-password', async (req, res) => {
     const { username, oldPassword, newPassword } = req.body;
 
     try {
         // Check if the user exists and the old password is correct
         const user = await journal.loginUser(username, oldPassword);
+        
         if (!user) {
             return res.status(401).json({ error: 'Incorrect username or password' });
         }
@@ -125,6 +135,21 @@ app.put('/auth/update-password', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+//create endpoint for delete a user
+//this works
+app.delete('/auth/delete/:userId', async (req, res) => {
+    const userId = req.params.userId;
+
+    try{
+        await journal.deleteUser(userId);
+        res.status(201).json({ message: 'User deleted successfully' });
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+
     }
 });
 
@@ -161,6 +186,7 @@ app.get('/api/journal-entries/:userId', async (req, res) => {
 });
 
 // Edit a journal entry
+//this works, just need a way to actually do it in frontend
 app.put('/api/journal-entries/:id', async (req, res) => {
     const entryId = req.params.id;
     const { title, content } = req.body;
@@ -176,6 +202,7 @@ app.put('/api/journal-entries/:id', async (req, res) => {
 });
 
 // Delete a journal entry
+//this works, just need a way to actually do it in frontend
 app.delete('/api/journal-entries/:id', async (req, res) => {
     const entryId = req.params.id;
 
