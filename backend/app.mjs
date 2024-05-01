@@ -22,7 +22,7 @@ app.use(session({
 
 app.use(cors({
     origin: 'http://localhost:4200', // Allow requests from this origin
-    methods: ['GET', 'POST'], // Allow specified HTTP methods
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specified HTTP methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Allow specified headers
   }));
 
@@ -69,8 +69,8 @@ app.get('/auth/registered-users', async (req, res) => {
 
 
 app.get('/auth/user/:id', async (req, res) => {
-    //const userId = req.params.id;
-    const userId = req.session.user.userId; 
+    const userId = req.params.id;
+    //const userId = req.session.user.userId; 
 
     try {
         const user = await journal.getUserByID(userId);

@@ -1,3 +1,7 @@
+
+
+<p> Registration ID: {{user.id}} </p>
+<p>Joke of the Day: {{randomJoke}}</p>
 <div class="container">
   <button (click)="createJournalForm()" class="btn btn-primary mb-4">Create Journal Entry</button>
   
@@ -26,3 +30,7 @@
       </div>
     </div>
   </div>
+
+  <div>
+            <button (click)="deleteUser(Id)" class="edit-button">Delete User</button>
+          </div>

@@ -16,7 +16,7 @@ export class journal{
 
     static async getUserByID(userId) {
         try {
-            const user = await db.get('SELECT * FROM users WHERE username = ?', [username]);
+            const user = await db.get('SELECT * FROM users WHERE id = ?', [userId]);
             return user;
         } catch (error) {
             console.error(error);

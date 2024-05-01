@@ -21,6 +21,16 @@ export class LoginService {
     return this.http.post<any>('http://localhost:5000/auth/login', { username, password });
   }
 
+  getYourId(userId: number): Observable<any> {
+    // Make the API call to retrieve journal entries using the userId
+    return this.http.get<any>(`http://localhost:5000/auth/user/${userId}`);
+  }
+
+  deleteUser(userId: number): Observable<any>{
+    return this.http.delete<any>(`http://localhost:5000/auth/delete/${userId}`)
+  }
+
+
 
   // getJournalEntries(): Observable<any[]> {
   //   const url = 'http://localhost:5000/api/journal-entries';
