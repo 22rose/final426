@@ -11,7 +11,7 @@ app.use('/public', express.static('public'));
 
 app.use(bodyParser.json());
 
-// Configure session middleware; used so data that is being shown is user-specific. 
+// use session middleware; used so data that is being shown is user-specific. 
 //additionally since our users table stores unique ids for each user, we do that there as well
 app.use(session({
     secret: 'your_secret_key',
@@ -21,16 +21,22 @@ app.use(session({
 }));
 
 app.use(cors({
-    origin: 'http://localhost:4200', // Allow requests from this origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specified HTTP methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specified headers
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'], 
   }));
 
 
-  //user resource: can register (post), see fellow registered users(get), login(post),
-  //logout(post), update password (put), delete user/yourself (delete)
+  //user resource: can register (post),  login(post), logout(post),
+            //see their user id(get), update password(put), delete user (delete)
+  
 
-  //journal resource: can create entry, edit, delete, and get entries
+  //journal resource: can create entry(post), edit(put), delete(delete),
+  //get entries of a specified user (get), get a specific entry(get)
+
+
+
+  //user resource using post 
 app.post('/auth/register', async (req, res) => {
     const { username, password } = req.body;
 
@@ -55,36 +61,7 @@ app.post('/auth/register', async (req, res) => {
     }
 });
 
-
-//have a user see all their fellow users?
-app.get('/auth/registered-users', async (req, res) => {
-    try {
-        const users = await journal.getRegisteredUsers();
-        res.json(users);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-
-app.get('/auth/user/:id', async (req, res) => {
-    const userId = req.params.id;
-    //const userId = req.session.user.userId; 
-
-    try {
-        const user = await journal.getUserByID(userId);
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-        res.json(user);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-
+//another user resource using post
 app.post('/auth/login', async (req, res) => {
     const { username, password } = req.body;
 
@@ -104,6 +81,7 @@ app.post('/auth/login', async (req, res) => {
     }
 });
 
+//another user resource using post
 app.post('/auth/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
@@ -115,8 +93,39 @@ app.post('/auth/logout', (req, res) => {
     });
 });
 
-//this doesnt work
+//user resource using get; get user's id
+app.get('/auth/user/:id', async (req, res) => {
+    const userId = req.params.id;
+    //const userId = req.session.user.userId; 
 
+    try {
+        const user = await journal.getUserByID(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+//not used in frontend, just for backend testing purposes
+app.get('/auth/registered-users', async (req, res) => {
+    try {
+        const users = await journal.getRegisteredUsers();
+        res.json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
+//this doesnt work
+//user resource using put
 app.put('/auth/update-password', async (req, res) => {
     const { username, oldPassword, newPassword } = req.body;
 
@@ -132,6 +141,7 @@ app.put('/auth/update-password', async (req, res) => {
         await journal.updatePassword(username, newPassword);
         
         res.json({ message: 'Password updated successfully' });
+        
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -139,7 +149,7 @@ app.put('/auth/update-password', async (req, res) => {
 });
 
 //create endpoint for delete a user
-//this works
+////user resource using delete
 app.delete('/auth/delete/:userId', async (req, res) => {
     const userId = req.params.userId;
 
@@ -154,6 +164,7 @@ app.delete('/auth/delete/:userId', async (req, res) => {
 });
 
 // Create a journal entry
+//journal resource using post
 app.post('/api/journal-entries/:userId', async (req, res) => {
     const { title, content } = req.body; 
     const userId = req.params.userId;
@@ -169,6 +180,7 @@ app.post('/api/journal-entries/:userId', async (req, res) => {
     }
 });
 
+//journal resource using get; used to get all entries associated with a user
 app.get('/api/journal-entries/:userId', async (req, res) => {
     const userId = req.params.userId;
     console.log('entries id=', userId);
@@ -185,15 +197,29 @@ app.get('/api/journal-entries/:userId', async (req, res) => {
     }
 });
 
-// Edit a journal entry
-//this works, just need a way to actually do it in frontend
-app.put('/api/journal-entries/:id', async (req, res) => {
-    const entryId = req.params.id;
+//journal resource using get; used to get a specific entry
+app.get('/api/specific-journal-entries/:entryId', async (req, res) => {
+    const entryId = req.params.entryId;
+
+    try{
+        const entry = await journal.getEntryById(entryId);
+        res.json(entry);
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
+
+
+// Journal reosurce using put; edit a journal entry
+app.put('/api/journal-entries/:entryId', async (req, res) => {
+    const entryId = req.params.entryId;
     const { title, content } = req.body;
 
     try {
-        const userId = req.session.user.userId;
-        await journal.editJournalEntry(userId, entryId, title, content);
+        //const userId = req.session.user.userId;
+        await journal.editJournalEntry(entryId, title, content);
         res.json({ message: 'Journal entry updated successfully' });
     } catch (error) {
         console.error(error);
@@ -201,14 +227,13 @@ app.put('/api/journal-entries/:id', async (req, res) => {
     }
 });
 
-// Delete a journal entry
-//this works, just need a way to actually do it in frontend
-app.delete('/api/journal-entries/:id', async (req, res) => {
-    const entryId = req.params.id;
+// Journal resource using delete; delete a journal entry
+app.delete('/api/journal-entries/:entryId', async (req, res) => {
+    const entryId = req.params.entryId;
 
     try {
-        const userId = req.session.user.userId;
-        await journal.deleteJournalEntry(userId, entryId);
+        //const userId = req.session.user.userId;
+        await journal.deleteJournalEntry(entryId);
         res.json({ message: 'Journal entry deleted successfully' });
     } catch (error) {
         console.error(error);

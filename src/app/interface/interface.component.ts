@@ -83,8 +83,31 @@ export class InterfaceComponent implements OnInit {
     });
   }
 
+  // editEntry(entryId: number): void {
+  //   // Navigate to the edit entry page with the entry ID
+  //   this.router.navigate(['/journal-form', entryId]);
+  // }
+
   deleteUser(userId: number): void {
     this.loginService.deleteUser(userId).subscribe({
+      next: (resp) => {
+        // Handle success response if needed
+        console.log(resp);
+        this.router.navigate(['']);
+      },
+      error: (err) => {
+        console.error(err);
+        // Handle error response if needed
+      }
+    });
+  }
+
+
+
+  logoutUser(): void {
+    const username = this.loginService.username;
+    const password = this.loginService.password;
+    this.loginService.logoutUser(username, password).subscribe({
       next: (resp) => {
         // Handle success response if needed
         console.log(resp);
@@ -120,7 +143,32 @@ export class InterfaceComponent implements OnInit {
     }
   }
 
+  editEntry(entryId: number): void {
+    // Navigate to the edit entry page with the entry ID
+    this.router.navigate(['/edit-entry', entryId]);
+  }
 
+  deleteEntry(entryId: number): void {
+    this.loginService.deleteEntry(entryId).subscribe({
+      next: (resp) => {
+        //this.router.navigate(['/interface']);
+        this.ngOnInit();
+        console.log(resp);
+      },
+      error: (err) => {
+        console.error(err);
+        // Handle error response if needed
+      }
+    });
+    
+    
+    
+  }
+
+  createPasswordForm(): void {
+    // Navigate to the edit entry page with the entry ID
+    this.router.navigate(['/update-password']);
+  }
   
 
 }

@@ -10,6 +10,8 @@ import { switchMap } from 'rxjs/operators';
 })
 export class LoginService {
   userId: string = '';
+  username: string = '';
+  password: string = '';
 
   constructor(private http: HttpClient) {}
 
@@ -21,6 +23,10 @@ export class LoginService {
     return this.http.post<any>('http://localhost:5000/auth/login', { username, password });
   }
 
+  logoutUser(username: string, password: string): Observable<any> {
+    return this.http.post<any>('http://localhost:5000/auth/logout', { username, password });
+  }
+
   getYourId(userId: number): Observable<any> {
     // Make the API call to retrieve journal entries using the userId
     return this.http.get<any>(`http://localhost:5000/auth/user/${userId}`);
@@ -28,6 +34,10 @@ export class LoginService {
 
   deleteUser(userId: number): Observable<any>{
     return this.http.delete<any>(`http://localhost:5000/auth/delete/${userId}`)
+  }
+
+  updatePassword(username: string, oldPassword: string, newPassword: string): Observable<any>{
+    return this.http.put<any>('http://localhost:5000/auth/update-password', {username, oldPassword, newPassword})
   }
 
 
@@ -47,16 +57,19 @@ export class LoginService {
     return this.http.post<any>(`http://localhost:5000/api/journal-entries/${userId}`, { title, content });
   }
 
-  // updateJournalEntry(userId: number, entryId: number, title: string, content: string): Observable<any> {
-  //   return this.http.put<any>(`http://localhost:5000/api/journal-entries/${entryId}`, { userId, title, content });
-  // }
+  getEntry(entryId: number): Observable<any> {
+    return this.http.get<any>(`http://localhost:5000/api/specific-journal-entries/${entryId}`);
+  }
+
+  editEntry(entryId: number, title: string, content: string): Observable<any>{
+    return this.http.put<any>(`http://localhost:5000/api/journal-entries/${entryId}`, { title, content })
+  }
+
+  deleteEntry(entryId: number): Observable<any>{
+    return this.http.delete(`http://localhost:5000/api/journal-entries/${entryId}`)
+  }
+
+  
  
-  // deleteJournalEntry(userId: number, entryId: number): Observable<any>{
-  //   return this.http.delete<any>(`http://localhost:5000/api/journal-entries/${entryId}`, { userId });
-  // }
-// getJournalEntries(userId: number): Observable<any[]> {
-//   // Append userId to the URL query string
-//   const url = `http://localhost:5000/api/journal-entries?userId=${userId}`;
-//   return this.http.get<any[]>(url);
-// }
+ 
  }

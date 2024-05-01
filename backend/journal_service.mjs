@@ -28,9 +28,12 @@ export class journal{
         try {
             //hash password
             console.log('Hashing password for user:', username);
+            //console.log("unhashed password:", password);
             const hashedPassword = await bcrypt.hash(password, 10);
             console.log('Hashed password for user:', username);
+            console.log("hashed password:", hashedPassword);
             const result = await db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword]);
+            
             console.log('result =', result);
             return { success: true };
         } catch (error) {
@@ -48,6 +51,16 @@ export class journal{
             console.error(error);
             throw new Error('Error fetching registered users');
 
+        }
+    }
+
+    static async getEntryById(entryId){
+        try{
+            const entry = await db.all('SELECT * FROM journal_entries WHERE id = ?', [entryId]);
+            return entry;
+        }catch(error){
+            console.error(error);
+            throw new Error('Error fetching entry');
         }
     }
 
@@ -87,8 +100,11 @@ export class journal{
     static async updatePassword(username, newPassword) {
         try {
             //hash new password
+            console.log("new password=", newPassword)
             const hashedPassword = await bcrypt.hash(newPassword, 10);
+            console.log("hashed new password=", hashedPassword);
             const result = await db.run('UPDATE users SET password = ? WHERE username = ?', [hashedPassword, username]);
+            
             console.log('result =', result);
             return { success: true };
         } catch (error) {
@@ -108,7 +124,7 @@ export class journal{
         }
     }
 
-    static async editJournalEntry(userId, entryId, title, content) {
+    static async editJournalEntry(entryId, title, content) {
         try {
             const result = await db.run('UPDATE journal_entries SET title = ?, content = ? WHERE id = ?', [title, content, entryId]);
             console.log('result =', result);
@@ -119,7 +135,7 @@ export class journal{
         }
     }
 
-    static async deleteJournalEntry(userId, entryId) {
+    static async deleteJournalEntry(entryId) {
         try {
             const result = await db.run('DELETE FROM journal_entries WHERE id = ?', [entryId]);
             console.log('result =', result);

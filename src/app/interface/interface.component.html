@@ -1,7 +1,7 @@
 
 
 <p> Registration ID: {{user.id}} </p>
-<p>Joke of the Day: {{randomJoke}}</p>
+<p>Joke to Keep You Going: {{randomJoke}}</p>
 <div class="container">
   <button (click)="createJournalForm()" class="btn btn-primary mb-4">Create Journal Entry</button>
   
@@ -20,17 +20,31 @@
           <div class="card-body">
             <p class="card-text">{{ entry.content }}</p>
           </div>
-          <!-- <div>
-            <button (click)="editPost()" class="edit-button">Edit Entry</button>
-            <button (click)="deletePost()" class="delete-button">Delete Entry</button>
-          </div> -->
+          <div class="card-footer">
+            <button (click)="editEntry(entry.id)" class="btn btn-primary">Edit Entry</button>
+          </div>
 
-          <!-- Add any other fields you want to display -->
+          <div class="card-footer">
+            <button (click)="deleteEntry(entry.id)" class="btn btn-primary">Delete Entry</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- <div *ngFor="let entry of entries">
+    <div>{{ entry.title }}</div>
+    <div>{{ entry.content }}</div>
+    <button (click)="editEntry(entry.id)">Edit</button>
+  </div> -->
+
   <div>
-            <button (click)="deleteUser(Id)" class="edit-button">Delete User</button>
-          </div>
+    <button (click)="logoutUser()" class="edit-button">Logout</button>
+    </div>
+  <div>
+  <button (click)="deleteUser(Id)" class="edit-button">Delete User (One-Click)</button>
+  </div>
+
+  <div>
+    <button (click)="createPasswordForm()" class="edit-button">Update Password</button>
+    </div>
