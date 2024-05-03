@@ -15,7 +15,7 @@
     <div *ngIf="journalForm">
         <form [formGroup]="journalForm" (ngSubmit)="onSubmit()">
           <h3>Create your journal entry!</h3>
-          <div class =container>
+          <div class ="container">
             <div class="form-group">
 
                 <input type="text" class="form-control" formControlName="title" id="title" placeholder="Enter title">
@@ -25,8 +25,8 @@
                 <textarea class="form-control" formControlName="content" id="content" rows="3" placeholder="Enter content"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
         </form>
       </div>
-    </div>
 </body>
 </html>

@@ -45,7 +45,7 @@ export class UpdatePasswordComponent {
 
     private onSuccess(): void {
       this.passwordForm.reset();
-      window.alert('Edited successfully');
+      window.alert('Password updated successfully');
     }
 
   }
