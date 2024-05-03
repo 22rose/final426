@@ -1,4 +1,4 @@
-# 426finalproject
+# 426 final project: online journal
 
 For our final project, we decided to create a personal online journal form for users. 
 The application allows user to create/register an account and subsequently be able to log in with it. 
