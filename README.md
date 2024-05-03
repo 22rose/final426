@@ -8,6 +8,6 @@ The user also has the to update their password. When its updated, subsequent log
 A user also has the ability to logout without worrying about losing their data. As long as the user exists, they can retrieve their data
 A user also has the ability to delete their account. When it's deleted, they lose their data and will have to essentially re-register, create new entries, etc
 
-Presentation video link:
+[Presentation video link](https://www.youtube.com/watch?v=l_utUfwLVUI)
 
 
