@@ -1,0 +1,47 @@
+/* Light pink background color for the form container */
+body {
+    background-color: #fce4ec; /* light pink */
+    font-family: Arial, sans-serif; /* change font if desired */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Set the height of the body to 100% of the viewport height */
+}
+
+/* Pink border color for input fields */
+.form-control {
+    border-color: #ff80ab; /* pink */
+    border-radius: 10px; /* Make the input boxes rounder */
+    padding: 12px; /* Increase padding for a larger text box */
+}
+
+/* Pink color for labels */
+label {
+    color: #ff80ab; /* pink */
+}
+
+/* Pink color for the submit button */
+.btn-primary {
+    background-color: #ff80ab; /* pink */
+    border-color: #ff80ab; /* pink */
+    color: white;
+    border-radius: 20px; /* Make the button rounder */
+    padding: 15px 30px; /* Increase padding for a larger button */
+    cursor: pointer;
+    margin-top: 20px; /* Add margin to move the button towards the center */
+}
+
+.btn-primary:hover {
+    background-color: #ff69b4; /* lighter pink on hover */
+    border-color: #ff69b4; /* lighter pink on hover */
+}
+
+/* Increase height of the content textarea */
+#content {
+    height: 500px; /* Adjust height as needed */
+    width: 800px;
+}
+
+#title {
+    width: 800px;
+}
