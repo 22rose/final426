@@ -23,15 +23,35 @@ body {
   .card {
     border: 1px solid #ff80ab; /* pink border */
     border-radius: 5px;
-    margin-bottom: 20px;
-  }
+    margin-bottom: 10px;
+    max-width: 300px; /* Adjust the maximum width as desired */
+}
+
   
-  .card-date {
-    background-color: #ff80ab; /* pink */
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px 5px 0 0;
-  }
+.card-date {
+  background-color: #ff80ab; /* pink */
+  color: white;
+  padding: 3px 6px; /* Adjust padding for smaller size */
+  border-radius: 5px 5px 0 0;
+  max-width: 300px;
+  font-size: 12px; /* Adjust font size for smaller size */
+  line-height: 1; /* Set line height to 1 to reduce height */
+}
+
+.card-footer .btn {
+  background-color: #ff80ab; /* pink */
+  color: white;
+  border: none;
+  padding: 5px 8px; /* Adjust padding for smaller size */
+  border-radius: 3px; /* Adjust border radius for smaller size */
+  cursor: pointer;
+  font-size: 12px; /* Adjust font size for smaller size */
+}
+
+.card-footer .btn:hover {
+  background-color: #ff69b4; /* lighter pink on hover */
+}
+
   
   .card-header {
     padding: 10px;
@@ -46,7 +66,9 @@ body {
   
   .card-body {
     padding: 10px;
-  }
+    background-color: white; /* Set text color to white */
+}
+
   
   .card-footer {
     padding: 10px;
@@ -65,4 +87,25 @@ body {
   .edit-button:hover {
     background-color: #ff69b4; /* lighter pink on hover */
   }
+
+  .container-1 {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.container-1 > div {
+    margin-left: 10px; /* Optional: Add some space between buttons */
+}
+
+/* Other CSS remains unchanged */
+
+.container-2 {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px; /* Add some space between buttons */
+}
+
+
+
+
   

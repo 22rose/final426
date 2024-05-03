@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Page Title</title>
+    <title>Interface Journal</title>
 
     <link rel="stylesheet" href="interface.component.css">
 
@@ -11,6 +11,18 @@
 <body>
     <p> Registration ID: {{user.id}} </p>
     <p>Joke to Keep You Going: {{randomJoke}}</p>
+
+    <div class ="container-1">
+    <div>
+        <button (click)="logoutUser()" class="edit-button">Logout</button>
+    </div>
+    <div>
+        <button (click)="deleteUser(Id)" class="edit-button">Delete User (One-Click)</button>
+    </div>
+    <div>
+        <button (click)="createPasswordForm()" class="edit-button">Update Password</button>
+    </div>
+    </div>
     <div class="container">
         <button (click)="createJournalForm()" class="btn btn-primary mb-4">Create Journal Entry</button>
         <div class="container">
@@ -26,29 +38,17 @@
                         <div class="card-body">
                             <p class="card-text">{{ entry.content }}</p>
                         </div>
+     
                         <div class="card-footer">
-                            <button (click)="editEntry(entry.id)" class="btn btn-primary">Edit Entry</button>
+                            <div class="container-2">
+                                <button (click)="editEntry(entry.id)" class="btn btn-primary">Edit Entry</button>
+                                <button (click)="deleteEntry(entry.id)" class="btn btn-primary">Delete Entry</button>
+                            </div>
                         </div>
-                        <div class="card-footer">
-                            <button (click)="deleteEntry(entry.id)" class="btn btn-primary">Delete Entry</button>
-                        </div>
+
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- <div *ngFor="let entry of entries">
-            <div>{{ entry.title }}</div>
-            <div>{{ entry.content }}</div>
-            <button (click)="editEntry(entry.id)">Edit</button>
-        </div> -->
-        <div>
-            <button (click)="logoutUser()" class="edit-button">Logout</button>
-        </div>
-        <div>
-            <button (click)="deleteUser(Id)" class="edit-button">Delete User (One-Click)</button>
-        </div>
-        <div>
-            <button (click)="createPasswordForm()" class="edit-button">Update Password</button>
         </div>
     </div>
 </body>
