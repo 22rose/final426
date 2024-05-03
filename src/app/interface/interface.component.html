@@ -1,50 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
 
+    <link rel="stylesheet" href="interface.component.css">
 
-<p> Registration ID: {{user.id}} </p>
-<p>Joke to Keep You Going: {{randomJoke}}</p>
-<div class="container">
-  <button (click)="createJournalForm()" class="btn btn-primary mb-4">Create Journal Entry</button>
-  
-
-
-<div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-4" *ngFor="let entry of entries">
-        <div class="card">
-          <div class="card-date">
-            <h5 class="card-date">{{ entry.createdAt }}</h5>
-          </div>
-          <div class="card-header">
-            <h5 class="card-title">{{ entry.title }}</h5>
-          </div>
-          <div class="card-body">
-            <p class="card-text">{{ entry.content }}</p>
-          </div>
-          <div class="card-footer">
-            <button (click)="editEntry(entry.id)" class="btn btn-primary">Edit Entry</button>
-          </div>
-
-          <div class="card-footer">
-            <button (click)="deleteEntry(entry.id)" class="btn btn-primary">Delete Entry</button>
-          </div>
+</head>
+<body>
+    <p> Registration ID: {{user.id}} </p>
+    <p>Joke to Keep You Going: {{randomJoke}}</p>
+    <div class="container">
+        <button (click)="createJournalForm()" class="btn btn-primary mb-4">Create Journal Entry</button>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4" *ngFor="let entry of entries">
+                    <div class="card">
+                        <div class="card-date">
+                            <h5 class="card-date">{{ entry.createdAt }}</h5>
+                        </div>
+                        <div class="card-header">
+                            <h5 class="card-title">{{ entry.title }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{ entry.content }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <button (click)="editEntry(entry.id)" class="btn btn-primary">Edit Entry</button>
+                        </div>
+                        <div class="card-footer">
+                            <button (click)="deleteEntry(entry.id)" class="btn btn-primary">Delete Entry</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        <!-- <div *ngFor="let entry of entries">
+            <div>{{ entry.title }}</div>
+            <div>{{ entry.content }}</div>
+            <button (click)="editEntry(entry.id)">Edit</button>
+        </div> -->
+        <div>
+            <button (click)="logoutUser()" class="edit-button">Logout</button>
+        </div>
+        <div>
+            <button (click)="deleteUser(Id)" class="edit-button">Delete User (One-Click)</button>
+        </div>
+        <div>
+            <button (click)="createPasswordForm()" class="edit-button">Update Password</button>
+        </div>
     </div>
-  </div>
-
-  <!-- <div *ngFor="let entry of entries">
-    <div>{{ entry.title }}</div>
-    <div>{{ entry.content }}</div>
-    <button (click)="editEntry(entry.id)">Edit</button>
-  </div> -->
-
-  <div>
-    <button (click)="logoutUser()" class="edit-button">Logout</button>
-    </div>
-  <div>
-  <button (click)="deleteUser(Id)" class="edit-button">Delete User (One-Click)</button>
-  </div>
-
-  <div>
-    <button (click)="createPasswordForm()" class="edit-button">Update Password</button>
-    </div>
+</body>
+</html>

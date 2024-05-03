@@ -1,0 +1,68 @@
+body {
+    background-color: #fce4ec; /* light pink */
+    font-family: Arial, sans-serif; /* change font if desired */
+  }
+  
+  .container {
+    margin-top: 20px;
+  }
+  
+  .btn {
+    background-color: #ff80ab; /* pink */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    background-color: #ff69b4; /* lighter pink on hover */
+  }
+  
+  .card {
+    border: 1px solid #ff80ab; /* pink border */
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .card-date {
+    background-color: #ff80ab; /* pink */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .card-header {
+    padding: 10px;
+    background-color: #fff;
+  }
+  
+  .card-title {
+    color: #ff80ab; /* pink */
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .card-body {
+    padding: 10px;
+  }
+  
+  .card-footer {
+    padding: 10px;
+    background-color: #fff;
+  }
+  
+  .edit-button {
+    background-color: #ff80ab; /* pink */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .edit-button:hover {
+    background-color: #ff69b4; /* lighter pink on hover */
+  }
+  

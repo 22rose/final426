@@ -1,19 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Entry</title>
 
+    <link rel="stylesheet" href="edit-entry.component.css">
 
-<div *ngIf="entryForm">
-    <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="title">Title:</label>
-        <input type="text" class="form-control" formControlName="title" id="title" placeholder="Enter title">
-      </div>
-      <div class="form-group">
-        <label for="content">Content:</label>
-        <textarea class="form-control" formControlName="content" id="content" rows="3" placeholder="Enter content"></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
-
-
- 
-  
+</head>
+<body>
+    <div *ngIf="entryForm">
+        <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" formControlName="title" id="title" placeholder="Enter title">
+            </div>
+            <div class="form-group">
+                <label for="content">Content:</label>
+                <textarea class="form-control" formControlName="content" id="content" rows="3" placeholder="Enter content"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
